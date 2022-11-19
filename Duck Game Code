@@ -1,0 +1,70 @@
+//Scene counter
+var currentScene = 1;
+
+//Constructor function for my button
+var Button = function(config) {
+    this.x = config.x || 0;
+    this.y = config.y || 0;
+    this.width = config.width || 89;
+    this.height = config.height || 50;
+    this.label = config.label || "Click";
+    this.color = fill(179, 88, 88);
+    var changeColor = function(newColor){
+         this.Color = newColor.Color || (184, 138, 138);
+    };
+};
+
+//prototype function for drawing the button
+Button.prototype.draw = function() {
+    rect(this.x, this.y, this.width, this.height, 5);
+    fill(0, 0, 0);
+    textSize(19);
+    textAlign(LEFT, TOP);
+    text(this.label, this.x+10, this.y+this.height/4);
+};
+
+//prototype function to check if mouse curser is inside the buttons
+Button.prototype.isMouseInside = function() {
+    return mouseX > this.x &&
+           mouseX < (this.x + this.width) &&
+           mouseY > this.y &&
+           mouseY < (this.y + this.height);
+};
+
+
+
+//start button instance
+var btn1 = new Button({
+    x: 141,
+    y: 260,
+    label: "Start"
+});
+
+
+//function to draw starting screen
+var drawScene1 = function(){
+    background(42, 153, 222);
+    fill(255, 255, 255);
+    textSize(38);
+    text("Duck Game Deluxe!", 41, 50);
+    textSize(15);
+    text("By: Mani and Daniel", 102, 99);
+    btn1.draw();
+};
+
+var drawScene2 = function(){
+    background(255, 0, 0);
+    
+};
+
+//if conditionals to decide whether to transition to tracing screen or not based on whether the start button is clicked
+mouseClicked = function() {
+    if (btn1.isMouseInside() && currentScene === 1) {
+        currentScene = 2;
+        drawScene2();
+    } 
+};
+
+if(currentScene === 1){
+    drawScene1();
+}
