@@ -1,7 +1,190 @@
 //Scene counter
-var currentScene = 1;
+var currentScene = 0;
+/*
+0 = start, 1 = instruction , 2 = customize, 3 = game
+*/
+noStroke();
 
-//Constructor function for my button
+//Bitmoji's
+
+    //Mani's Bitmoji
+    var drawHead = function(x, y, h){
+        var r = h/128;
+        fill(196, 164, 132);
+        ellipse(x+186*r,y+139*r,122*r,107*r); //face
+        fill(255, 255, 255);
+        fill(255, 0, 0);
+        fill(255, 255, 255);
+        noStroke();
+        ellipse(x+143*r, y+179*r, 50*r, 40*r);
+        ellipse(x+234*r, y+180*r, 55*r, 26*r);
+        fill(0, 0, 0);
+        quad(x+166*r, y+70*r, x+126*r, y+116*r, x+130*r, y+149*r, x+181*r, y+79*r); //hair
+        ellipse(x+190*r, y+84*r, 128*r, 28*r); //hair
+        quad(x+248*r, y+165*r, x+237*r, y+141*r, x+219*r, y+87*r, x+246*r, y+110*r); // hair
+        stroke(0, 0, 0);
+        fill(196, 164, 132);
+        ellipse(x+169*r, y+127*r, 23*r, 23*r); //lens
+        line(x+181*r, y+123*r, x+196*r, y+123*r); //bridge frame
+        ellipse(x+208*r, y+127*r, 23*r, 23*r); //lens
+        line(x+158*r, y+124*r, x+129*r, y+114*r); //frame
+        line(x+218*r, y+125*r, x+236*r, y+119*r); //frame
+        noStroke();
+        fill(0, 0, 0);
+        ellipse(x+168*r, y+127*r, 13*r, 11*r); //eye
+        ellipse(x+208*r, y+128*r, 14*r, 12*r); //eye
+        bezier(x+275*r, y+160*r, x+142*r, y+195*r, x+74*r, y+125*r, x+158*r, y+158*r); //beard
+        fill(255, 255, 255);
+        ellipse(x+270*r, y+151*r, 42*r, 47*r); //making beard smooth
+        stroke(255, 0, 0);
+        line(x+205*r, y+149*r, x+176*r, y+151*r); //lips
+        noStroke();
+        fill(0, 0, 0);
+        ellipse(x+190*r, y+146*r, 41*r, 4*r);
+        ellipse(x+173*r, y+109*r, 22*r, 5*r);
+        ellipse(x+208*r, y+110*r, 21*r, 5*r);
+        fill(130, 126, 126);
+        rect(x+173*r, y+39*r, 37*r, 43*r, 6*r);
+        fill(255, 255, 255);
+        ellipse(x+155*r, y+58*r, 44*r, 47*r);
+        ellipse(x+227*r, y+58*r, 44*r, 47*r);
+        
+    };
+    
+    var drawBody = function(x, y, h){
+        var r = h/128;
+        fill(227, 230, 67);
+        rect(x+110*r, y+190*r, 162*r, 128*r, 80*r);
+        fill(196, 164, 132);
+        ellipse(x+184*r, y+195*r, 62*r, 21*r);
+        stroke(0, 0, 0);
+        line(x+146*r, y+258*r, x+146*r, y+226*r);
+        line(x+164*r, y+241*r, x+146*r, y+226*r);
+        line(x+164*r, y+241*r, x+180*r, y+226*r);
+        line(x+180*r, y+257*r, x+180*r, y+226*r);
+        line(x+218*r, y+239*r, x+238*r, y+226*r);
+        line(x+242*r, y+247*r, x+219*r, y+239*r);
+        line(x+214*r, y+259*r, x+242*r, y+245*r);
+        };
+    
+    var ManiBitmoji = function(x, y, h){
+        var r = h/100;
+        drawHead(x+0*r, y+0*r, 127*r);
+        drawBody(x+0*r, y+0*r, 128*r);
+    };
+    
+    //Daniel's Bitmoji
+    var DanielBitmoji = function(bitmojiX,bitmojiY,bitmojiHeight)
+    {
+        //the bitmoji itself
+            var hoodieOfHood = function (bitmojiX,bitmojiY,bitmojiHeight)
+            {
+                //hoodie of Hood//
+                fill(145, 65, 5);
+                stroke(41, 18, 2);
+                ellipse(bitmojiX+(bitmojiHeight/125*99),bitmojiY+(bitmojiHeight/125*98),bitmojiHeight/125*76,bitmojiHeight/125*40);
+                fill(0, 0, 0);
+                ellipse(bitmojiX+(bitmojiHeight/125*99),bitmojiY+(bitmojiHeight/125*98),bitmojiHeight/125*54,bitmojiHeight/125*40);
+            };
+        
+            var Head = function (bitmojiX,bitmojiY,bitmojiHeight)
+            {
+                //Head//
+                noStroke();
+                fill(241, 194, 125); 
+                ellipse (bitmojiX+(bitmojiHeight/125*100),bitmojiY+(bitmojiHeight/125*50),bitmojiHeight/125*84,bitmojiHeight/125*106); 
+            };
+            
+            var Hair = function (bitmojiX,bitmojiY,bitmojiHeight)
+            {
+                //Hair//
+                fill(0, 0, 0); 
+                ellipse(bitmojiX+(bitmojiHeight/125*101),bitmojiY+(bitmojiHeight/125*8),bitmojiHeight/125*76,bitmojiHeight/125*27);
+                arc(bitmojiX+(bitmojiHeight/125*86),bitmojiY+(bitmojiHeight/125*23),bitmojiHeight/125*65,bitmojiHeight/125*49,132,319);
+                arc(bitmojiX+(bitmojiHeight/125*113),bitmojiY+(bitmojiHeight/125*23),bitmojiHeight/125*65,bitmojiHeight/125*49,199,408);
+            };
+    
+            var Hoodie = function(bitmojiX,bitmojiY,bitmojiHeight)
+            {
+                //hoodie//
+                fill(145, 65, 5);
+                stroke(41, 18, 2);
+                quad(bitmojiX+(bitmojiHeight/125*29),bitmojiY+(bitmojiHeight/125*104),bitmojiX+(bitmojiHeight/125*169),bitmojiY+(bitmojiHeight/125*104),bitmojiX+(bitmojiHeight/125*157),bitmojiY+(bitmojiHeight/125*202),bitmojiX+(bitmojiHeight/125*48),bitmojiY+(bitmojiHeight/125*202));
+                fill(0, 0, 0);
+                textSize(bitmojiHeight/125*30);
+                text("D.S", bitmojiX+(bitmojiHeight/125*76), bitmojiY+(bitmojiHeight/125*158));
+            };
+    
+            var Glasses = function(bitmojiX,bitmojiY,bitmojiHeight)
+            {
+                //Glasses//
+                fill(241, 194, 125);
+                quad(bitmojiX+(bitmojiHeight/125*75),bitmojiY+(bitmojiHeight/125*47),bitmojiX+(bitmojiHeight/125*90),bitmojiY+(bitmojiHeight/125*47),bitmojiX+(bitmojiHeight/125*90),bitmojiY+(bitmojiHeight/125*56),bitmojiX+(bitmojiHeight/125*75),bitmojiY+(bitmojiHeight/125*56));
+                quad(bitmojiX+(bitmojiHeight/125*110),bitmojiY+(bitmojiHeight/125*47),bitmojiX+(bitmojiHeight/125*125),bitmojiY+(bitmojiHeight/125*47),bitmojiX+(bitmojiHeight/125*125),bitmojiY+(bitmojiHeight/125*56),bitmojiX+(bitmojiHeight/125*110),bitmojiY+(bitmojiHeight/125*56));
+                line(bitmojiX+(bitmojiHeight/125*90),bitmojiY+(bitmojiHeight/125*52),bitmojiX+(bitmojiHeight/125*109),bitmojiY+(bitmojiHeight/125*52));
+                line(bitmojiX+(bitmojiHeight/125*59),bitmojiY+(bitmojiHeight/125*49),bitmojiX+(bitmojiHeight/125*74),bitmojiY+(bitmojiHeight/125*52));
+                line(bitmojiX+(bitmojiHeight/125*125),bitmojiY+(bitmojiHeight/125*52),bitmojiX+(bitmojiHeight/125*143),bitmojiY+(bitmojiHeight/125*49));
+            };
+    
+            var Eyes = function(bitmojiX,bitmojiY,bitmojiHeight)
+            {
+                //eyes
+                fill(0, 0, 0);
+                ellipse(bitmojiX+(bitmojiHeight/125*83),bitmojiY+(bitmojiHeight/125*52),bitmojiHeight/125*5,bitmojiHeight/125*5);
+                fill(0, 0, 0);
+                ellipse(bitmojiX+(bitmojiHeight/125*118),bitmojiY+(bitmojiHeight/125*52),bitmojiHeight/125*5,bitmojiHeight/125*5);
+            };
+    
+            var Nose = function(bitmojiX,bitmojiY,bitmojiHeight)
+            {
+                //nose//
+                fill(241, 194, 125);
+                stroke(0, 0, 0);
+                bezier(bitmojiX+(bitmojiHeight/125*100),bitmojiY+(bitmojiHeight/125*76),bitmojiX+(bitmojiHeight/125*98),bitmojiY+(bitmojiHeight/125*81),bitmojiX+(bitmojiHeight/125*118),bitmojiY+(bitmojiHeight/125*78),bitmojiX+(bitmojiHeight/125*101),bitmojiY+(bitmojiHeight/125*60));
+            };
+            
+            var Mouth = function(bitmojiX,bitmojiY,bitmojiHeight)
+            {
+                //mouth with small smirk
+                arc(bitmojiX+(bitmojiHeight/125*96),bitmojiY+(bitmojiHeight/125*85),bitmojiHeight/125*29,bitmojiHeight/125*21,130,187);//small smile wrinkle//
+                fill(252, 252, 252);
+                arc(bitmojiX+(bitmojiHeight/125*98),bitmojiY+(bitmojiHeight/125*84),bitmojiHeight/125*29,bitmojiHeight/125*21,12,196);//the smile with smirk//
+            };
+    
+            var goatee = function(bitmojiX,bitmojiY,bitmojiHeight)
+            {   
+            //lines for goatee
+            line(bitmojiX+(bitmojiHeight/125*96),bitmojiY+(bitmojiHeight/125*99),bitmojiX+(bitmojiHeight/125*96),bitmojiY+(bitmojiHeight/125*103));
+            line(bitmojiX+(bitmojiHeight/125*98),bitmojiY+(bitmojiHeight/125*99),bitmojiX+(bitmojiHeight/125*98),bitmojiY+(bitmojiHeight/125*103));
+            line(bitmojiX+(bitmojiHeight/125*100),bitmojiY+(bitmojiHeight/125*99),bitmojiX+(bitmojiHeight/125*100),bitmojiY+(bitmojiHeight/125*103));
+            line(bitmojiX+(bitmojiHeight/125*102),bitmojiY+(bitmojiHeight/125*99),bitmojiX+(bitmojiHeight/125*102),bitmojiY+(bitmojiHeight/125*103));
+            line(bitmojiX+(bitmojiHeight/125*104),bitmojiY+(bitmojiHeight/125*99),bitmojiX+(bitmojiHeight/125*104),bitmojiY+(bitmojiHeight/125*103));
+            };
+    
+            var mustache = function(bitmojiX,bitmojiY,bitmojiHeight)
+            {
+            //lines for mustache
+            line(bitmojiX+(bitmojiHeight/125*96),bitmojiY+(bitmojiHeight/125*80),bitmojiX+(bitmojiHeight/125*96),bitmojiY+(bitmojiHeight/125*81));
+            line(bitmojiX+(bitmojiHeight/125*98),bitmojiY+(bitmojiHeight/125*80),bitmojiX+(bitmojiHeight/125*98),bitmojiY+(bitmojiHeight/125*81));
+            line(bitmojiX+(bitmojiHeight/125*100),bitmojiY+(bitmojiHeight/125*80),bitmojiX+(bitmojiHeight/125*100),bitmojiY+(bitmojiHeight/125*81));
+            line(bitmojiX+(bitmojiHeight/125*102),bitmojiY+(bitmojiHeight/125*80),bitmojiX+(bitmojiHeight/125*102),bitmojiY+(bitmojiHeight/125*81));
+            line(bitmojiX+(bitmojiHeight/125*104),bitmojiY+(bitmojiHeight/125*80),bitmojiX+(bitmojiHeight/125*104),bitmojiY+(bitmojiHeight/125*81));
+            };
+        // Drawing them out into the Function// 
+        hoodieOfHood(bitmojiX,bitmojiY,bitmojiHeight);
+        Head(bitmojiX,bitmojiY,bitmojiHeight);
+        Hair(bitmojiX,bitmojiY,bitmojiHeight);
+        Hoodie(bitmojiX,bitmojiY,bitmojiHeight);
+        Glasses(bitmojiX,bitmojiY,bitmojiHeight);
+        Eyes(bitmojiX,bitmojiY,bitmojiHeight);
+        Nose(bitmojiX,bitmojiY,bitmojiHeight);
+        Mouth(bitmojiX,bitmojiY,bitmojiHeight);
+        goatee(bitmojiX,bitmojiY,bitmojiHeight);
+        mustache(bitmojiX,bitmojiY,bitmojiHeight);
+    };
+
+//BUTTON
+    //Constructor function for my button
 var Button = function(config) {
     this.x = config.x || 0;
     this.y = config.y || 0;
@@ -9,62 +192,79 @@ var Button = function(config) {
     this.height = config.height || 50;
     this.label = config.label || "Click";
     this.color = fill(179, 88, 88);
+    this.onClick = config.onClick || function() {};
     var changeColor = function(newColor){
-         this.Color = newColor.Color || (184, 138, 138);
+        this.Color = newColor.Color || (184, 138, 138);
+        };
     };
+    
+    //prototype function for drawing the button
+    Button.prototype.draw = function() {
+        rect(this.x, this.y, this.width, this.height, 5);
+        fill(0, 0, 0);
+        textSize(19);
+        textAlign(LEFT, TOP);
+        text(this.label, this.x+10, this.y+this.height/4);
+    };
+    
+    //prototype function to check if mouse curser is inside the buttons
+    Button.prototype.isMouseInside = function() {
+        return mouseX > this.x &&
+               mouseX < (this.x + this.width) &&
+               mouseY > this.y &&
+               mouseY < (this.y + this.height);
+    };
+    
+    Button.prototype.handleMouseClick = function() {
+    if (this.isMouseInside()) {
+        this.onClick();
+    }
 };
 
-//prototype function for drawing the button
-Button.prototype.draw = function() {
-    rect(this.x, this.y, this.width, this.height, 5);
-    fill(0, 0, 0);
-    textSize(19);
-    textAlign(LEFT, TOP);
-    text(this.label, this.x+10, this.y+this.height/4);
-};
-
-//prototype function to check if mouse curser is inside the buttons
-Button.prototype.isMouseInside = function() {
-    return mouseX > this.x &&
-           mouseX < (this.x + this.width) &&
-           mouseY > this.y &&
-           mouseY < (this.y + this.height);
-};
-
-
-
-//start button instance
-var btn1 = new Button({
-    x: 141,
-    y: 260,
-    label: "Start"
-});
-
+    
+    //start button instance
+    var startButton = new Button({
+        x: 141,
+        y: 260,
+        label: "Start",
+        onClick: function(){
+            currentScene = 1;
+        }    
+    });
+    
+    //making the buttons work
+    mouseClicked = function() {
+        if(currentScene === 0){
+            startButton.handleMouseClick();//makes button work on start scene.//
+        }
+        
+    };
 
 //function to draw starting screen
-var drawScene1 = function(){
+var startScreen = function(){
     background(42, 153, 222);
     fill(255, 255, 255);
     textSize(38);
     text("Duck Game Deluxe!", 41, 50);
     textSize(15);
     text("By: Mani and Daniel", 102, 99);
-    btn1.draw();
+    startButton.draw();
+    ManiBitmoji(8,113,42);
+    DanielBitmoji(197,152,50);
+
 };
 
-var drawScene2 = function(){
+var instructionScreen = function(){
     background(255, 0, 0);
     
 };
 
-//if conditionals to decide whether to transition to tracing screen or not based on whether the start button is clicked
-mouseClicked = function() {
-    if (btn1.isMouseInside() && currentScene === 1) {
-        currentScene = 2;
-        drawScene2();
-    } 
+draw = function() {
+    if(currentScene === 0){
+        startScreen();
+    }
+    else if (currentScene === 1){
+        instructionScreen();
+    }
 };
 
-if(currentScene === 1){
-    drawScene1();
-}
