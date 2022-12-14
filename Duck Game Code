@@ -254,17 +254,35 @@ var startScreen = function(){
 
 };
 
-var instructionScreen = function(){
-    background(255, 0, 0);
+var drawScene2 = function(){
+    
+    background(59, 217, 206);
+    textSize(50);
+    text("Instructions:", 50, 50);
+    textSize(15);
+    fill(255, 255, 255);
+    text("Click on 'next' to customize your duck's avatar", 10, 129);
+    text("then click 'play' to play the game!", 10, 149);
+    text("the objective is to not crash your duck on any of the ", 5, 169);
+    text("obstacles approaching it. Good luck!", 5, 190);
+    btnNext.draw();
+};
+
+var drawScene3 = function(){
+    background(41, 135, 150);
+    drawDuck(72, 108, 176);
     
 };
 
-draw = function() {
-    if(currentScene === 0){
-        startScreen();
-    }
-    else if (currentScene === 1){
-        instructionScreen();
+mouseClicked = function() {
+    if (btn1.isMouseInside() && currentScene === 1) {
+        currentScene = 2;
+        drawScene2();
+       
+    } 
+    else if(btnNext.isMouseInside() && currentScene === 2) {
+         currentScene = 3;
+        drawScene3();
     }
 };
 
