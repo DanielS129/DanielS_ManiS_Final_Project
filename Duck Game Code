@@ -1,5 +1,6 @@
 //Scene counter
 var currentScene = 0;
+var rockSpeed = round(random(0.6,10));
 /*
 0 = start, 1 = instruction , 2 = customize, 3 = game
 */
@@ -67,6 +68,7 @@ noStroke();
         line(x+214*r, y+259*r, x+242*r, y+245*r);
         };
     
+    //Mani's Bitmoji
     var ManiBitmoji = function(x, y, h){
         var r = h/100;
         drawHead(x+0*r, y+0*r, 127*r);
@@ -183,6 +185,143 @@ noStroke();
         mustache(bitmojiX,bitmojiY,bitmojiHeight);
     };
 
+//DUCK
+
+//duck Function
+var drawDuck = function(colorlist,x, y, h){
+    var r = h/128;
+    fill(242, 224, 29);
+    ellipse(x+176*r, y+198*r, 96*r, 50*r);
+    ellipse(x+225*r, y+175*r, 67*r, 41*r);
+    fill(0, 0, 0);
+    ellipse(x+214*r, y+174*r, 8*r, 8*r);
+    fill(255, 0, 0);
+    ellipse(x+249*r, y+182*r, 41*r, 12*r);
+};
+
+//Duck constuctor function
+var Duck = function(x,y){
+    this.x = x;
+    this.y = y;
+    this.rocks = 0;
+};
+
+//Duck prototype function for draw
+Duck.prototype.draw = function() {
+    constrain(this.y,0,height-0);
+    drawDuck(0,this.x,this.y,50);
+};
+
+//Duck prototype function for jumping in game
+Duck.prototype.hopOne = function(){
+    this.y = constrain(this.y,200,240);
+    this.y -= 20;
+};
+
+//Duck prototype function for falling in game
+Duck.prototype.fall = function(){
+    if(this.y < 275){
+    this.y += 3;
+    }
+};
+
+//check if duck hit any obstacles
+Duck.prototype.checkForRockGrab = function(rock) {
+    if((rock.x >= this.x && rock.x <= (this.x + 40)) && 
+        (rock.y >= (this.y+0) && rock.y <= (this.y + 80))) {
+         currentScene = 0;
+    }
+};
+
+
+
+//features of the rocks
+var Rock1 = function(x, y, rockSpeed) {
+    this.x = x;
+    this.y = y;
+    this.rockSpeed = round(random(0.6, 5));
+};
+
+//prototype function for the rocks
+Rock1.prototype.draw = function() {
+   var rockOne = function(x,y){
+    
+    fill(237, 223, 223);
+    line(x+25,y-400,x+25,y-10);//Line
+    
+    beginShape();//big rock
+    vertex(x+40,y+4);
+    vertex(x+18,y+4);
+    vertex(x+13,y-17);
+    vertex(x+25,y-35);
+    vertex(x+41,y-28);
+    vertex(x+39,y-4);
+    vertex(x+40,y+4);
+    endShape();
+    
+    beginShape();//small rock 1
+    vertex(x+16,y+5);
+    vertex(x+15,y+15);
+    vertex(x+25,y+21);
+    vertex(x+37,y+19);
+    vertex(x+41,y+9);
+    vertex(x+29,y-1);
+    vertex(x+16,y+5);
+    endShape();
+    
+    
+    fill(0,0,0);
+    text("1",x+23,y);
+    
+    fill(237, 223, 223);
+    beginShape();//small rock 2
+    vertex(x+16,y+95);
+    vertex(x+13,y+110);
+    vertex(x+15,y+120);
+    vertex(x+37,y+120);
+    vertex(x+41,y+99);
+    vertex(x+29,y+89);
+    vertex(x+16,y+95);
+    endShape();
+};
+    rockOne(this.x+50,this.y-71);
+    };
+
+//smaller individual rock
+var Rock2 = function(x, y, rockSpeed) {
+    this.x = x;
+    this.y = y;
+    this.rockSpeed = round(random(0.6, 5));
+    
+};
+
+
+//prototype function for drawing smaller rock
+Rock2.prototype.draw = function() {
+    var rockOne = function(x,y){
+    
+    
+    fill(237, 223, 223);
+    beginShape();//small rock 2
+    vertex(x+16,y+95);
+    vertex(x+13,y+110);
+    vertex(x+15,y+120);
+    vertex(x+37,y+120);
+    vertex(x+41,y+99);
+    vertex(x+29,y+89);
+    vertex(x+16,y+95);
+    endShape();
+};
+    rockOne(this.x+60,this.y-100);
+    
+    };
+
+//random car spawning with rocks array
+var rocks = [];
+for(var i = 0; i < 200; i++) {
+    rocks.push(new Rock1(i * random(300, 400), 300));
+    rocks.push(new Rock2(i * random(600, 750), 245));
+}
 //BUTTON
     //Constructor function for my button
 var Button = function(config) {
@@ -215,6 +354,7 @@ var Button = function(config) {
                mouseY < (this.y + this.height);
     };
     
+    //prototype function to make the button function
     Button.prototype.handleMouseClick = function() {
     if (this.isMouseInside()) {
         this.onClick();
@@ -232,20 +372,67 @@ var Button = function(config) {
         }    
     });
     
+    
+    //game button instance
+    var gameButton = new Button({
+        x:141,
+        y:340,
+        label: "Play",
+        onClick: function(){
+            currentScene = 2;
+        }
+    });
+    
     //making the buttons work
     mouseClicked = function() {
         if(currentScene === 0){
             startButton.handleMouseClick();//makes button work on start scene.//
         }
+        else if (currentScene === 1){
+            gameButton.handleMouseClick(); //makes button work on Cutomization screen
+        }
+        
         
     };
+    
+
+
+//GRASS
+
+//Drawing out the grasses across
+var grassXs = [];
+for (var i = 0; i < 25; i++)
+{
+    grassXs.push(i*20);
+}
+
+//Drawig the grass function
+var newGrass = function(x,y){
+    
+    fill(124, 252, 0);
+    beginShape();
+    strokeWeight(-2);
+    vertex(x+12,y+75);
+    vertex(x+2,y+65);
+    vertex(x+10,y+66);
+    vertex(x+18,y+75);
+    endShape();
+    beginShape();
+    vertex(x+13,y+75);
+    vertex(x+20,y+65);
+    vertex(x+27,y+63);
+    vertex(x+20,y+75);
+    endShape();
+};
+
+// SCREENS
 
 //function to draw starting screen
 var startScreen = function(){
     background(42, 153, 222);
     fill(255, 255, 255);
-    textSize(38);
-    text("Duck Game Deluxe!", 41, 50);
+    textSize(30);
+    text("Impossible Duck Game!", 25, 50);
     textSize(15);
     text("By: Mani and Daniel", 102, 99);
     startButton.draw();
@@ -254,35 +441,79 @@ var startScreen = function(){
 
 };
 
-var drawScene2 = function(){
-    
+//function to draw the instruction screen
+var instructionScreen = function(){
     background(59, 217, 206);
     textSize(50);
-    text("Instructions:", 50, 50);
+    text("Instructions:", 50, 50 );
     textSize(15);
-    fill(255, 255, 255);
-    text("Click on 'next' to customize your duck's avatar", 10, 129);
-    text("then click 'play' to play the game!", 10, 149);
-    text("the objective is to not crash your duck on any of the ", 5, 169);
-    text("obstacles approaching it. Good luck!", 5, 190);
-    btnNext.draw();
+    fill(255,255,255);
+    text("Click 'Play' to play the game", 10, 149);
+    text("press space to control ur duck", 10, 129);
+    text("The objective is to not crash your duck on any of the", 10, 169);
+    text("obstacles approaching it, Good Luck!!", 10, 190);
+    currentScene = 1;
+    gameButton.draw();
 };
 
-var drawScene3 = function(){
-    background(41, 135, 150);
-    drawDuck(72, 108, 176);
-    
-};
+//function to draw the customizing screen
 
-mouseClicked = function() {
-    if (btn1.isMouseInside() && currentScene === 1) {
-        currentScene = 2;
-        drawScene2();
-       
-    } 
-    else if(btnNext.isMouseInside() && currentScene === 2) {
-         currentScene = 3;
-        drawScene3();
+
+//drawing my duck
+var duck = new Duck(100,200);
+
+//function to draw the game screen
+var gameScreen = function(){
+    //STATIC
+    background(227, 254, 255);
+    strokeWeight(1);
+    fill(145, 88, 32);
+    rect(-1,360,401,40);
+    fill(124, 252, 0);
+    rect(-1,341,401,20);
+    fill(0, 0, 0);
+    text("game speed: " + rockSpeed, 50, 0);   
+
+    //Drawing moving grass
+    for(var i = 0; i < grassXs.length; i++){
+        newGrass(grassXs[i],268);
+        grassXs[i] -=1;
+        if (grassXs[i] <= -20){
+            grassXs[i] = width;
+        }
     }
+    
+      //for loop to draw the rocks in game and check if duck rock collision
+     for(var i = 0; i < rocks.length; i++) {
+        rocks[i].draw();
+        duck.checkForRockGrab(rocks[i]);
+        rocks[i].x -= rockSpeed;
+        
+        }
+        duck.draw();
 };
 
+
+//draw function with if statements to correspond the scenes with numerical values of currentScene counter
+draw = function() {
+    if(currentScene === 0){
+        startScreen();
+    }
+    else if (currentScene === 1){
+        instructionScreen();
+    }
+    else if(currentScene === 2){
+        gameScreen();
+    }
+    
+     
+        //Enabling jump-spacebar functionality for duck in game
+    if(keyIsPressed && key.code === 32){
+        duck.hopOne();
+    }
+    else{
+        duck.fall();
+    }
+    
+ 
+    };
